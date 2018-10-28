@@ -8,11 +8,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace TackyImageViewer
 {
     public partial class fMain : Form
     {
+        private static string InitialConfigFile = @"<AppConfig>
+	<!-- IconShowMode: possible values:
+	Tile
+	LargeIcons
+	SmallIcons
+	List
+	Details
+	-->
+    <IconShowMode>List</IconShowMode>
+	<!-- ImageShowMode: possible values:
+		Normal
+		StretchImage
+		AutoSize
+		CenterImage
+		Zoom	
+	-->
+    <ImageShowMode>CenterImage</ImageShowMode>
+	<!-- VerticalSplitter:
+	stores size, in pixels
+	-->
+    <VerticalSplitter>300</VerticalSplitter>
+	<!-- HorizontalSplitter:
+	you gessed it. pixel size of the horizontal splitter
+	-->
+    <HorizontalSplitter>200</HorizontalSplitter>
+</AppConfig>
+";
+        private bool IsLoadingApp = true;
+        public string configFile;
         public const string EMPTYDOTS = "...";
         public static readonly string[] FILEXT =
             {
@@ -96,11 +126,131 @@ namespace TackyImageViewer
         public fMain()
         {
             InitializeComponent();
-            lvFiles.View = View.List;
-            tscbListType.SelectedIndex = (int)IconShowMode.List;
 
-            pbImage.SizeMode = PictureBoxSizeMode.Normal;
-            tscbImageDisplayType.SelectedIndex = (int)ImageShowMode.Normal;
+            configFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                                        Application.ProductName + ".xml");
+            if (!File.Exists(configFile))
+            {
+                using (StreamWriter sw = File.CreateText(configFile))
+                {
+                    sw.WriteLine(InitialConfigFile);
+                }
+            }
+
+            #region load preferences...
+            string pref = ReadConfig("IconShowMode");
+            if (pref.Equals(IconShowMode.Tile))
+            {
+                lvFiles.View = View.Tile;
+                tscbListType.SelectedIndex = (int)IconShowMode.Tile;
+            }
+            else if (pref.Equals(IconShowMode.LargeIcons))
+            {
+                lvFiles.View = View.LargeIcon;
+                tscbListType.SelectedIndex = (int)IconShowMode.LargeIcons;
+            }
+            else if (pref.Equals(IconShowMode.SmallIcons))
+            {
+                lvFiles.View = View.SmallIcon;
+                tscbListType.SelectedIndex = (int)IconShowMode.SmallIcons;
+            }
+            else if (pref.Equals(IconShowMode.Details))
+            {
+                lvFiles.View = View.Details;
+                tscbListType.SelectedIndex = (int)IconShowMode.Details;
+            }
+            else //List is the default
+            {
+                lvFiles.View = View.List;
+                tscbListType.SelectedIndex = (int)IconShowMode.List;
+            }
+
+            pref = ReadConfig("ImageShowMode");
+            if (pref.Equals(ImageShowMode.AutoSize))
+            {
+                pbImage.SizeMode = PictureBoxSizeMode.AutoSize;
+                tscbImageDisplayType.SelectedIndex = (int)ImageShowMode.AutoSize;
+            }
+            else if (pref.Equals(ImageShowMode.Normal))
+            {
+                pbImage.SizeMode = PictureBoxSizeMode.Normal;
+                tscbImageDisplayType.SelectedIndex = (int)ImageShowMode.Normal;
+            }
+            else if (pref.Equals(ImageShowMode.StretchImage))
+            {
+                pbImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                tscbImageDisplayType.SelectedIndex = (int)ImageShowMode.StretchImage;
+            }
+            else if (pref.Equals(ImageShowMode.Zoom))
+            {
+                pbImage.SizeMode = PictureBoxSizeMode.Zoom;
+                tscbImageDisplayType.SelectedIndex = (int)ImageShowMode.Zoom;
+            }
+            else //center image is the default
+            {
+                pbImage.SizeMode = PictureBoxSizeMode.CenterImage;
+                tscbImageDisplayType.SelectedIndex = (int)ImageShowMode.CenterImage;
+            }
+
+            pref = ReadConfig("VerticalSplitter");
+            int myTest;
+            if (int.TryParse(pref, out myTest))
+            {
+                scMajor.SplitterDistance = myTest;
+            }
+            pref = ReadConfig("HorizontalSplitter");
+            if (int.TryParse(pref, out myTest))
+            {
+                scMinor.SplitterDistance = myTest;
+            }
+            #endregion
+            IsLoadingApp = false;
+        }
+        private string ReadConfig(string name)
+        {
+            if (!IsLoadingApp)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(configFile);
+                foreach (XmlNode node in doc.DocumentElement.ChildNodes)
+                {
+                    if (node.Name.Equals(name))
+                        return node.InnerText;
+                }
+                return string.Empty;
+            }
+            else
+                return string.Empty;
+        }
+
+        private void WriteConfig(string name, string value)
+        {
+            if (!IsLoadingApp)
+            {
+                try
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(configFile);
+                    foreach (XmlNode node in doc.DocumentElement.ChildNodes)
+                    {
+                        if (node.Name.Equals(name))
+                        {
+                            node.InnerText = value;
+                            break;
+                        }
+                    }
+                    doc.Save(configFile);
+                }
+                catch (Exception myException)
+                {
+                    if (myException.GetType() == typeof(System.Xml.XmlException))
+                    {
+                        MessageBox.Show("bad written xml, check tag names.", "XML Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                    else
+                        MessageBox.Show("Another kind of error!" + myException.ToString(), "IDontKnow error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void fMain_Load(object sender, EventArgs e)
@@ -228,6 +378,8 @@ namespace TackyImageViewer
                     lvFiles.View = View.Details;
                     break;
             }
+
+            WriteConfig("IconShowMode", Enum.ToObject(typeof(IconShowMode), tscbListType.SelectedIndex).ToString());
         }
 
         private void tscbImageDisplayType_SelectedIndexChanged(object sender, EventArgs e)
@@ -250,6 +402,17 @@ namespace TackyImageViewer
                     pbImage.SizeMode = PictureBoxSizeMode.Zoom;
                     break;
             }
+            WriteConfig("ImageShowMode", Enum.ToObject(typeof(ImageShowMode), tscbImageDisplayType.SelectedIndex).ToString());
+        }
+
+        private void scMajor_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            WriteConfig("VerticalSplitter", scMajor.SplitterDistance.ToString());
+        }
+
+        private void scMinor_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            WriteConfig("HorizontalSplitter", scMinor.SplitterDistance.ToString());
         }
     }
 }

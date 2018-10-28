@@ -41,7 +41,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tscbImageDisplayType = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.tsToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMajor)).BeginInit();
             this.scMajor.Panel1.SuspendLayout();
@@ -61,8 +60,7 @@
             this.tscbListType,
             this.toolStripSeparator1,
             this.toolStripLabel2,
-            this.tscbImageDisplayType,
-            this.toolStripLabel3});
+            this.tscbImageDisplayType});
             this.tsToolBar.Location = new System.Drawing.Point(0, 0);
             this.tsToolBar.Name = "tsToolBar";
             this.tsToolBar.Size = new System.Drawing.Size(800, 25);
@@ -91,8 +89,9 @@
             // 
             this.scMajor.Panel2.Controls.Add(this.pbImage);
             this.scMajor.Size = new System.Drawing.Size(800, 403);
-            this.scMajor.SplitterDistance = 335;
+            this.scMajor.SplitterDistance = 300;
             this.scMajor.TabIndex = 2;
+            this.scMajor.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.scMajor_SplitterMoved);
             // 
             // scMinor
             // 
@@ -108,9 +107,10 @@
             // scMinor.Panel2
             // 
             this.scMinor.Panel2.Controls.Add(this.lvFiles);
-            this.scMinor.Size = new System.Drawing.Size(335, 403);
-            this.scMinor.SplitterDistance = 208;
+            this.scMinor.Size = new System.Drawing.Size(300, 403);
+            this.scMinor.SplitterDistance = 200;
             this.scMinor.TabIndex = 0;
+            this.scMinor.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.scMinor_SplitterMoved);
             // 
             // tvTree
             // 
@@ -118,7 +118,7 @@
             this.tvTree.HideSelection = false;
             this.tvTree.Location = new System.Drawing.Point(0, 0);
             this.tvTree.Name = "tvTree";
-            this.tvTree.Size = new System.Drawing.Size(335, 208);
+            this.tvTree.Size = new System.Drawing.Size(300, 200);
             this.tvTree.TabIndex = 0;
             this.tvTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvTree_BeforeExpand);
             this.tvTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvTree_AfterSelect);
@@ -128,7 +128,7 @@
             this.lvFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvFiles.Location = new System.Drawing.Point(0, 0);
             this.lvFiles.Name = "lvFiles";
-            this.lvFiles.Size = new System.Drawing.Size(335, 191);
+            this.lvFiles.Size = new System.Drawing.Size(300, 199);
             this.lvFiles.TabIndex = 0;
             this.lvFiles.UseCompatibleStateImageBehavior = false;
             this.lvFiles.SelectedIndexChanged += new System.EventHandler(this.lvFiles_SelectedIndexChanged);
@@ -138,7 +138,7 @@
             this.pbImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbImage.Location = new System.Drawing.Point(0, 0);
             this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(461, 403);
+            this.pbImage.Size = new System.Drawing.Size(496, 403);
             this.pbImage.TabIndex = 0;
             this.pbImage.TabStop = false;
             // 
@@ -185,12 +185,6 @@
             this.tscbImageDisplayType.Size = new System.Drawing.Size(121, 25);
             this.tscbImageDisplayType.SelectedIndexChanged += new System.EventHandler(this.tscbImageDisplayType_SelectedIndexChanged);
             // 
-            // toolStripLabel3
-            // 
-            this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(86, 22);
-            this.toolStripLabel3.Text = "toolStripLabel3";
-            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,7 +228,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripComboBox tscbImageDisplayType;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
     }
 }
 
