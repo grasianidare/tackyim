@@ -1,0 +1,8 @@
+<AppConfig>
+	<icons>
+		<icon name="buttonClose" value="close.png" />
+		<icon name="iconFolder" value="folder.png" />
+		<icon name="iconDriver" value="driver.png" />
+		
+	</icons>
+</AppConfig>

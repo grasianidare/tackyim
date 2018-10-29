@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TackyImageViewer", "TackyImageViewer\TackyImageViewer.csproj", "{98CA7487-97BC-40D4-BDC4-F28C3AA1184E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98CA7487-97BC-40D4-BDC4-F28C3AA1184E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98CA7487-97BC-40D4-BDC4-F28C3AA1184E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98CA7487-97BC-40D4-BDC4-F28C3AA1184E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98CA7487-97BC-40D4-BDC4-F28C3AA1184E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CDB43969-AA94-4C38-88FF-B354A3863809}
+	EndGlobalSection
+EndGlobal

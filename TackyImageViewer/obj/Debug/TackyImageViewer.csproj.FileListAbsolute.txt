@@ -1,0 +1,10 @@
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\obj\Debug\TackyImageViewer.fMain.resources
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\obj\Debug\TackyImageViewer.Properties.Resources.resources
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\obj\Debug\TackyImageViewer.csproj.GenerateResource.cache
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\obj\Debug\TackyImageViewer.csproj.CoreCompileInputs.cache
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\bin\Debug\TackyImageViewer.exe.config
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\bin\Debug\TackyImageViewer.exe
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\bin\Debug\TackyImageViewer.pdb
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\obj\Debug\TackyImageViewer.exe
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\obj\Debug\TackyImageViewer.pdb
+C:\Users\Grasiani\source\repos\tackyim\TackyImageViewer\obj\Debug\TackyImageViewer.csprojAssemblyReference.cache
